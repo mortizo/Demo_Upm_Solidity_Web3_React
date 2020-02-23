@@ -42,7 +42,7 @@ class App extends Component {
       var _serviceList = new Array
       var _missionList = new Array
       
-      for(var _i=1;_i<11;_i++)
+      for(var _i=1;_i<30;_i++)
       {
         var _service = await _contrato.methods.getService(_i).call()
         var _mission = await _contrato.methods.getMission(_i).call()
