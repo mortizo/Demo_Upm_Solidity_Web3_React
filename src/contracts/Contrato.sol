@@ -46,9 +46,7 @@ contract Contrato{
         _totalMission = 0;
     }
 
-    function totalMission() public view returns (uint) {
-        return _totalMission;
-    }
+    
 
     event setServiceEvent(string _description, address _constituentAddress);
  
@@ -71,6 +69,10 @@ contract Contrato{
             }
         }
         return (_service.serviceConstituentAddress, _service.serviceDescription);
+    }
+
+    function totalMission() public view returns (uint) {
+        return _totalMission;
     }
 
     function setMission(string memory _missionDescription, uint _missionCodeFather) public {

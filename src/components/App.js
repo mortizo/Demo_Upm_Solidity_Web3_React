@@ -42,18 +42,18 @@ class App extends Component {
       var _serviceList = new Array
       var _missionList = new Array
       
-      for(var _i=1;_i<30;_i++)
+      for(var _i=1;_i<5;_i++)
       {
         var _service = await _contrato.methods.getService(_i).call()
-        var _mission = await _contrato.methods.getMission(_i).call()
-        
         _serviceList[_i]=_service
-        _missionList[_i]=_mission
       }
-      console.log(_serviceList)
-      console.log(_missionList)
-      
       this.setState({servicioList:_serviceList})
+
+      for(var _j=1;_j<= await _contrato.methods.totalMission().call();_j++)
+      {
+        var _mission = await _contrato.methods.getMission(_j).call()
+        _missionList[_j]=_mission
+      }
       this.setState({missionList:_missionList})
       
     }else{
@@ -71,7 +71,6 @@ class App extends Component {
     .send({from: this.state.cuenta})
   }
   
-
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -167,10 +166,7 @@ class App extends Component {
                     </tbody>
                   </Table>
                 </Form>
-
-              
-              </div>
-                            
+              </div>     
             </main>
           </div>
         </div>
