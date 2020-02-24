@@ -46,7 +46,7 @@ class App extends Component {
       var _serviceList = new Array
       var _missionList = new Array
       
-      for(var _i=1;_i<5;_i++)
+      for(var _i=1;_i<= await _contrato.methods.totalService().call();_i++)
       {
         var _service = await _contrato.methods.getService(_i).call()
         _serviceList[_i]=_service
@@ -106,9 +106,10 @@ class App extends Component {
                   
                   <Table striped bordered hover>
                     <thead>
-                      <tr>
-                        <th>Address</th>
+                      <tr>                        
+                        <th>Service code</th> 
                         <th>Description</th>  
+                        <th>Address</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,6 +117,7 @@ class App extends Component {
                           <tr>
                             <td>{item[0]}</td>
                             <td>{item[1]}</td>
+                            <td>{item[2]}</td>
                           </tr>
                         ))}
                     </tbody>
@@ -139,6 +141,7 @@ class App extends Component {
                   <Table striped bordered hover>
                      <thead>
                        <tr>
+                         <th>Mission code</th>
                          <th>Address</th>
                          <th>Description</th>  
                          <th>Father</th>                          
@@ -147,9 +150,10 @@ class App extends Component {
                      <tbody>
                          {this.state.missionList.map(item => (
                           <tr>
-                            <td>{item[2]}</td>
                             <td>{item[0]}</td>
+                            <td>{item[3]}</td>
                             <td>{item[1]}</td>
+                            <td>{item[2]}</td>
                           </tr>
                          ))}
                      </tbody>

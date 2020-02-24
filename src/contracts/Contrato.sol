@@ -33,42 +33,20 @@ contract Contrato{
         string serviceDescription;
     }
     struct Mission {
+        uint missionCode;
         string missionDescription;
         uint missionCodeFather;
         address missionConstituentAddress;
     }
 
-    Service[] private serviceList;
     uint private _totalMission;
     mapping(uint => Mission) private missionMap;
- 
+    uint private _totalService;
+    mapping(uint => Service) private serviceMap;
+    
     constructor() public {
         _totalMission = 0;
-    }
-
-    
-
-    event setServiceEvent(string _description, address _constituentAddress);
- 
-    function setService(string memory _serviceDescription) public {
-        require(bytes(_serviceDescription).length > 0,"Error descripción vacía");
-        uint _serviceCode = serviceList.length.add(1);
-        serviceList.push(Service(_serviceCode, msg.sender, _serviceDescription));
-        emit setServiceEvent(_serviceDescription, msg.sender);
-    }
-    
-    function getService(uint  _serviceCode) public view returns (address, string memory) {
-        Service memory _service;
-        uint _i;
-        for(_i=0; _i<serviceList.length; _i++)
-        {
-            if(serviceList[_i].serviceCode==_serviceCode)
-            {
-                _service=serviceList[_i];
-                break;
-            }
-        }
-        return (_service.serviceConstituentAddress, _service.serviceDescription);
+        _totalService = 0;
     }
 
     function totalMission() public view returns (uint) {
@@ -77,12 +55,26 @@ contract Contrato{
 
     function setMission(string memory _missionDescription, uint _missionCodeFather) public {
         _totalMission = _totalMission.add(1);
-        missionMap[_totalMission] = Mission(_missionDescription, _missionCodeFather, msg.sender);
+        missionMap[_totalMission] = Mission(_totalMission, _missionDescription, _missionCodeFather, msg.sender);
     }
 
-    function getMission(uint  _missionCode) public view returns (string memory, uint, address) {
-        return (missionMap[_missionCode].missionDescription,
+    function getMission(uint  _missionCode) public view returns (uint, string memory, uint, address) {
+        return (_missionCode, missionMap[_missionCode].missionDescription,
             missionMap[_missionCode].missionCodeFather, missionMap[_missionCode].missionConstituentAddress);
     }
+    function totalService() public view returns (uint) {
+        return _totalService;
+    }
+
+    function setService(string memory _serviceDescription) public {
+        _totalService = _totalService.add(1);
+        serviceMap[_totalService] = Service(_totalService, msg.sender, _serviceDescription);
+    }
+
+    function getService(uint _serviceCode) public view returns (uint, string memory, address) {
+        return (_serviceCode, serviceMap[_serviceCode].serviceDescription, serviceMap[_serviceCode].serviceConstituentAddress);
+    }
+
+
 
 }
