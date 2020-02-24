@@ -6,9 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Navbar from 'react-bootstrap/Navbar';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-
 
 import './App.css';
 
@@ -31,20 +28,22 @@ class App extends Component {
 
   async componentWillMount(){
     this.web3 = await getWeb3();
+    
     await this.loadBlockchainData()
   }
 
   async loadBlockchainData()
   {
     const cuentas = await this.web3.eth.getAccounts()
+    console.log(cuentas[0])
     this.setState({cuenta: cuentas[0]})
     const datosRed = Contrato.networks[await this.web3.eth.net.getId()]
     
     if(datosRed){
       const _contrato = new this.web3.eth.Contract(Contrato.abi, datosRed.address)
       this.setState({ contrato : _contrato})
-      var _serviceList = new Array
-      var _missionList = new Array
+      var _serviceList = []
+      var _missionList = []
       
       for(var _i=1;_i<= await _contrato.methods.totalService().call();_i++)
       {
