@@ -5,6 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
+import Navbar from 'react-bootstrap/Navbar';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+
 
 import './App.css';
 
@@ -80,40 +84,26 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.ups.edu.ec"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Demo
-          </a>
+        
+        <Navbar className=" bg-light justify-content-between">
+          <Navbar.Brand href="http://www.ups.edu.ec">Demo - Dapp solidity / web 3 / react</Navbar.Brand>
+          <Navbar.Text>
+            Cuenta: {this.state.cuenta}
+          </Navbar.Text>
+        </Navbar>
 
-          <ul className="navbar-brand px-3">
-            <li className="navbar-item text-nowrap d-none d-sm-none d-sm-block">
-              <small className="text-secondary">
-                <small id="Cuenta">Cuenta activa: {this.state.cuenta}</small>
-              </small>
-            </li>
-          </ul>
-
-
-        </nav>
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
-                        
               <div className="content mr-auto ml-auto">               
-                
-                <Form.Control id="valorTexto" name="valorTexto" type="text" 
-                  placeholder="Descripción del Servicio" 
-                  value={this.state.valorTexto}
-                  onChange={this.onChange.bind(this)} 
-                />
-                <Button variant="primary" type="submit" onClick={this.setService} >Enviar</Button>
-              
-                <Form>
+
+                <div>
+                  <Form.Control id="valorTexto" name="valorTexto" type="text" 
+                    placeholder="Descripción del Servicio" 
+                    value={this.state.valorTexto}
+                    onChange={this.onChange.bind(this)} />
+                  <Button variant="primary" type="submit" onClick={this.setService} >Enviar</Button>                  
+                  
                   <Table striped bordered hover>
                     <thead>
                       <tr>
@@ -130,43 +120,44 @@ class App extends Component {
                         ))}
                     </tbody>
                   </Table>
-                </Form>
-                
-                <Form.Control id="valorMission" name="valorMission" type="text" 
-                  placeholder="Descripción de la Misión" 
-                  value={this.state.valorMission}
-                  onChange={this.onChange.bind(this)} 
-                />
-                <Form.Control id="valorFather" name="valorFather" type="text" 
-                  placeholder="Código de la Misión Padre" 
-                  value={this.state.valorFather}
-                  onChange={this.onChange.bind(this)} 
-                />
-                
-                <Button variant="primary" type="submit" onClick={this.setMission} >Enviar</Button>
+                            
+                </div>
 
-                <Form>
+
+                <div>
+                  <Form.Control id="valorMission" name="valorMission" type="text" 
+                    placeholder="Descripción de la Misión" 
+                    value={this.state.valorMission}
+                    onChange={this.onChange.bind(this)} />
+                  <Form.Control id="valorFather" name="valorFather" type="text" 
+                    placeholder="Código de la Misión Padre" 
+                    value={this.state.valorFather}
+                    onChange={this.onChange.bind(this)} />
+                
+                  <Button variant="primary" type="submit" onClick={this.setMission} >Enviar</Button>
+
                   <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Address</th>
-                        <th>Description</th>  
-                        <th>Father</th>  
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.missionList.map(item => (
+                     <thead>
+                       <tr>
+                         <th>Address</th>
+                         <th>Description</th>  
+                         <th>Father</th>                          
+                       </tr>
+                     </thead>
+                     <tbody>
+                         {this.state.missionList.map(item => (
                           <tr>
                             <td>{item[2]}</td>
                             <td>{item[0]}</td>
                             <td>{item[1]}</td>
                           </tr>
-                        ))}
-                    </tbody>
+                         ))}
+                     </tbody>
                   </Table>
-                </Form>
-              </div>     
+                 
+                </div>  
+
+              </div>    
             </main>
           </div>
         </div>
